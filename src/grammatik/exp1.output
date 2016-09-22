@@ -1,0 +1,203 @@
+Terminale, die in Grammatik unbenutzt sind
+
+   INTNUMBER
+
+
+Grammatik
+
+    0 $accept: start $end
+
+    1 start: question
+    2      | statement
+
+    3 question: QWORD vp np
+
+    4 statement: np vp np
+
+    5 np: DETNOM nom
+    6   | PROPN
+
+    7 nom: ADJ nom
+    8    | OBJECT
+
+    9 vp: V
+
+
+Terminale und die Regeln, in denen sie verwendet werden
+
+$end (0) 0
+error (256)
+INTNUMBER (258)
+PROPN (259) 6
+DETNOM (260) 5
+OBJECT (261) 8
+ADJ (262) 7
+V (263) 9
+QWORD (264) 3
+
+
+Nicht-Terminal und die Regeln, in denen sie verwendet werden
+
+$accept (10)
+    auf der linken Seite: 0
+start (11)
+    auf der linken Seite: 1 2, auf der rechten Seite: 0
+question (12)
+    auf der linken Seite: 3, auf der rechten Seite: 1
+statement (13)
+    auf der linken Seite: 4, auf der rechten Seite: 2
+np (14)
+    auf der linken Seite: 5 6, auf der rechten Seite: 3 4
+nom (15)
+    auf der linken Seite: 7 8, auf der rechten Seite: 5 7
+vp (16)
+    auf der linken Seite: 9, auf der rechten Seite: 3 4
+
+
+Zustand 0
+
+    0 $accept: . start $end
+
+    PROPN   schiebe und gehe zu Zustand 1 über
+    DETNOM  schiebe und gehe zu Zustand 2 über
+    QWORD   schiebe und gehe zu Zustand 3 über
+
+    start      gehe zu Zustand 4 über
+    question   gehe zu Zustand 5 über
+    statement  gehe zu Zustand 6 über
+    np         gehe zu Zustand 7 über
+
+
+Zustand 1
+
+    6 np: PROPN .
+
+    $default  reduziere mit Regel 6 (np)
+
+
+Zustand 2
+
+    5 np: DETNOM . nom
+
+    OBJECT  schiebe und gehe zu Zustand 8 über
+    ADJ     schiebe und gehe zu Zustand 9 über
+
+    nom  gehe zu Zustand 10 über
+
+
+Zustand 3
+
+    3 question: QWORD . vp np
+
+    V  schiebe und gehe zu Zustand 11 über
+
+    vp  gehe zu Zustand 12 über
+
+
+Zustand 4
+
+    0 $accept: start . $end
+
+    $end  schiebe und gehe zu Zustand 13 über
+
+
+Zustand 5
+
+    1 start: question .
+
+    $default  reduziere mit Regel 1 (start)
+
+
+Zustand 6
+
+    2 start: statement .
+
+    $default  reduziere mit Regel 2 (start)
+
+
+Zustand 7
+
+    4 statement: np . vp np
+
+    V  schiebe und gehe zu Zustand 11 über
+
+    vp  gehe zu Zustand 14 über
+
+
+Zustand 8
+
+    8 nom: OBJECT .
+
+    $default  reduziere mit Regel 8 (nom)
+
+
+Zustand 9
+
+    7 nom: ADJ . nom
+
+    OBJECT  schiebe und gehe zu Zustand 8 über
+    ADJ     schiebe und gehe zu Zustand 9 über
+
+    nom  gehe zu Zustand 15 über
+
+
+Zustand 10
+
+    5 np: DETNOM nom .
+
+    $default  reduziere mit Regel 5 (np)
+
+
+Zustand 11
+
+    9 vp: V .
+
+    $default  reduziere mit Regel 9 (vp)
+
+
+Zustand 12
+
+    3 question: QWORD vp . np
+
+    PROPN   schiebe und gehe zu Zustand 1 über
+    DETNOM  schiebe und gehe zu Zustand 2 über
+
+    np  gehe zu Zustand 16 über
+
+
+Zustand 13
+
+    0 $accept: start $end .
+
+    $default  annehmen
+
+
+Zustand 14
+
+    4 statement: np vp . np
+
+    PROPN   schiebe und gehe zu Zustand 1 über
+    DETNOM  schiebe und gehe zu Zustand 2 über
+
+    np  gehe zu Zustand 17 über
+
+
+Zustand 15
+
+    7 nom: ADJ nom .
+
+    $default  reduziere mit Regel 7 (nom)
+
+
+Zustand 16
+
+    3 question: QWORD vp np .
+
+    $default  reduziere mit Regel 3 (question)
+
+
+Zustand 17
+
+    4 statement: np vp np .
+
+    $default  reduziere mit Regel 4 (statement)
