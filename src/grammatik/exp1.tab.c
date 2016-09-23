@@ -67,7 +67,7 @@
 
 #include <stdio.h>
 #include <string.h>
- 
+
 void yyerror(const char *str)
 {
         fprintf(stderr,"error: %s\n",str);
@@ -109,7 +109,7 @@ int main()
 # define YY_YY_EXP1_TAB_H_INCLUDED
 /* Enabling traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -133,7 +133,17 @@ extern int yydebug;
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+/* Line 387 of yacc.c  */
+#line 26 "exp1.y"
+char* str;
+  double val;
+
+
+/* Line 387 of yacc.c  */
+#line 146 "exp1.tab.c"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -160,7 +170,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 164 "exp1.tab.c"
+#line 174 "exp1.tab.c"
 
 #ifdef short
 # undef short
@@ -450,8 +460,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    29,    30,    31,    33,    34,    36,    37,
-      38
+       0,    33,    33,    33,    34,    35,    37,    38,    40,    41,
+      42
 };
 #endif
 
@@ -1346,51 +1356,45 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
+        case 4:
 /* Line 1792 of yacc.c  */
-#line 29 "exp1.y"
-    {}
-    break;
-
-  case 4:
-/* Line 1792 of yacc.c  */
-#line 30 "exp1.y"
-    {printf("QWORD %s\n",(yyvsp[(1) - (3)]));}
+#line 34 "exp1.y"
+    {printf("QWORD %s\n",(yyvsp[(1) - (3)].str));}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 31 "exp1.y"
+#line 35 "exp1.y"
     {printf("Statement\n");}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 33 "exp1.y"
-    {printf("DETNOM %s\n",(yyvsp[(1) - (2)]));}
+#line 37 "exp1.y"
+    {printf("DETNOM %s\n",(yyvsp[(1) - (2)].str));}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 34 "exp1.y"
-    {printf("PROPN %s\n",(yyvsp[(1) - (1)]));}
+#line 38 "exp1.y"
+    {printf("PROPN %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 37 "exp1.y"
-    {printf("OBJECT %s\n",(yyvsp[(1) - (1)]));}
+#line 41 "exp1.y"
+    {printf("OBJECT %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 38 "exp1.y"
-    {printf("V %s\n",(yyvsp[(1) - (1)]));}
+#line 42 "exp1.y"
+    {printf("V %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1394 "exp1.tab.c"
+#line 1398 "exp1.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1622,5 +1626,5 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 39 "exp1.y"
+#line 43 "exp1.y"
 

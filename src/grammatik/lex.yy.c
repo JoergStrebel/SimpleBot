@@ -568,7 +568,7 @@ int yy_flex_debug = 1;
 
 static yyconst flex_int16_t yy_rule_linenum[10] =
     {   0,
-       11,   12,   13,   14,   15,   16,   17,   18,   19
+       12,   13,   14,   15,   16,   17,   18,   19,   20
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -583,7 +583,8 @@ char *yytext;
 #line 4 "lexp1.l"
 #include <stdio.h>
 #include "exp1.tab.h"
-#line 587 "lex.yy.c"
+
+#line 588 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -825,9 +826,9 @@ YY_DECL
 	register int yy_act;
     
 /* %% [7.0] user's declarations go here */
-#line 10 "lexp1.l"
+#line 11 "lexp1.l"
 
-#line 831 "lex.yy.c"
+#line 832 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -943,42 +944,42 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "lexp1.l"
-return INTNUMBER;
+#line 12 "lexp1.l"
+{yylval.str = strdup(yytext); return INTNUMBER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "lexp1.l"
-return PROPN;
+#line 13 "lexp1.l"
+{yylval.str = strdup(yytext); return PROPN;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "lexp1.l"
-return DETNOM;
+#line 14 "lexp1.l"
+{yylval.str = strdup(yytext); return DETNOM;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "lexp1.l"
-return OBJECT;
+#line 15 "lexp1.l"
+{yylval.str = strdup(yytext); return OBJECT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "lexp1.l"
-return ADJ;
+#line 16 "lexp1.l"
+{yylval.str = strdup(yytext); return ADJ;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "lexp1.l"
-return V;
+#line 17 "lexp1.l"
+{yylval.str = strdup(yytext); return V;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "lexp1.l"
-return QWORD;
+#line 18 "lexp1.l"
+{yylval.str = strdup(yytext); return QWORD;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "lexp1.l"
+#line 19 "lexp1.l"
 putchar( ' ' );
 	YY_BREAK
 case 9:
@@ -986,15 +987,15 @@ case 9:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 19 "lexp1.l"
+#line 20 "lexp1.l"
 
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "lexp1.l"
+#line 21 "lexp1.l"
 ECHO;
 	YY_BREAK
-#line 998 "lex.yy.c"
+#line 999 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2118,6 +2119,6 @@ void yyfree (void * ptr )
 
 /* %ok-for-header */
 
-#line 20 "lexp1.l"
+#line 21 "lexp1.l"
 
 
