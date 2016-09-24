@@ -6,7 +6,8 @@
 #include <hunspell/hunspell.h>
 
 #include "simplebot.h"
-#include "grammatik/exp1.tab.h"
+#include "grammatik/lex.yy.h"
+
 
 /* A static variable for holding the line. */
 static char *line_read = (char *)NULL;
