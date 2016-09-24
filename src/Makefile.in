@@ -89,7 +89,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_simplebot_OBJECTS = simplebot.$(OBJEXT)
+am_simplebot_OBJECTS = simplebot.$(OBJEXT) exp1.tab.$(OBJEXT) \
+	lex.yy.$(OBJEXT)
 simplebot_OBJECTS = $(am_simplebot_OBJECTS)
 simplebot_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -108,6 +109,10 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_@AM_V@)
@@ -238,7 +243,7 @@ top_srcdir = @top_srcdir@
 # whatever flags you want to pass to the C compiler & linker
 AM_CFLAGS = -pedantic -Wall -O2
 AM_LDFLAGS = -lreadline -lhunspell
-simplebot_SOURCES = simplebot.c simplebot.h
+simplebot_SOURCES = simplebot.c simplebot.h grammatik/exp1.tab.c ./grammatik/exp1.tab.h ./grammatik/lex.yy.c
 all: all-am
 
 .SUFFIXES:
@@ -252,9 +257,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign src/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign src/Makefile
+	  $(AUTOMAKE) --gnu src/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -326,6 +331,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/exp1.tab.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lex.yy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/simplebot.Po@am__quote@
 
 .c.o:
@@ -341,6 +348,34 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+exp1.tab.o: grammatik/exp1.tab.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT exp1.tab.o -MD -MP -MF $(DEPDIR)/exp1.tab.Tpo -c -o exp1.tab.o `test -f 'grammatik/exp1.tab.c' || echo '$(srcdir)/'`grammatik/exp1.tab.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/exp1.tab.Tpo $(DEPDIR)/exp1.tab.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='grammatik/exp1.tab.c' object='exp1.tab.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o exp1.tab.o `test -f 'grammatik/exp1.tab.c' || echo '$(srcdir)/'`grammatik/exp1.tab.c
+
+exp1.tab.obj: grammatik/exp1.tab.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT exp1.tab.obj -MD -MP -MF $(DEPDIR)/exp1.tab.Tpo -c -o exp1.tab.obj `if test -f 'grammatik/exp1.tab.c'; then $(CYGPATH_W) 'grammatik/exp1.tab.c'; else $(CYGPATH_W) '$(srcdir)/grammatik/exp1.tab.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/exp1.tab.Tpo $(DEPDIR)/exp1.tab.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='grammatik/exp1.tab.c' object='exp1.tab.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o exp1.tab.obj `if test -f 'grammatik/exp1.tab.c'; then $(CYGPATH_W) 'grammatik/exp1.tab.c'; else $(CYGPATH_W) '$(srcdir)/grammatik/exp1.tab.c'; fi`
+
+lex.yy.o: ./grammatik/lex.yy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lex.yy.o -MD -MP -MF $(DEPDIR)/lex.yy.Tpo -c -o lex.yy.o `test -f './grammatik/lex.yy.c' || echo '$(srcdir)/'`./grammatik/lex.yy.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lex.yy.Tpo $(DEPDIR)/lex.yy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='./grammatik/lex.yy.c' object='lex.yy.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lex.yy.o `test -f './grammatik/lex.yy.c' || echo '$(srcdir)/'`./grammatik/lex.yy.c
+
+lex.yy.obj: ./grammatik/lex.yy.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT lex.yy.obj -MD -MP -MF $(DEPDIR)/lex.yy.Tpo -c -o lex.yy.obj `if test -f './grammatik/lex.yy.c'; then $(CYGPATH_W) './grammatik/lex.yy.c'; else $(CYGPATH_W) '$(srcdir)/./grammatik/lex.yy.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/lex.yy.Tpo $(DEPDIR)/lex.yy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='./grammatik/lex.yy.c' object='lex.yy.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o lex.yy.obj `if test -f './grammatik/lex.yy.c'; then $(CYGPATH_W) './grammatik/lex.yy.c'; else $(CYGPATH_W) '$(srcdir)/./grammatik/lex.yy.c'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

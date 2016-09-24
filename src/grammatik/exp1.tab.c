@@ -78,14 +78,9 @@ int yywrap()
         return 1;
 } 
   
-int main()
-{
-        return yyparse();
-} 
-
 
 /* Line 371 of yacc.c  */
-#line 89 "exp1.tab.c"
+#line 84 "exp1.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -136,13 +131,13 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 26 "exp1.y"
+#line 21 "exp1.y"
 char* str;
   double val;
 
 
 /* Line 387 of yacc.c  */
-#line 146 "exp1.tab.c"
+#line 141 "exp1.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -170,7 +165,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 174 "exp1.tab.c"
+#line 169 "exp1.tab.c"
 
 #ifdef short
 # undef short
@@ -460,8 +455,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    33,    33,    33,    34,    35,    37,    38,    40,    41,
-      42
+       0,    28,    28,    28,    29,    30,    32,    33,    35,    36,
+      37
 };
 #endif
 
@@ -1358,43 +1353,43 @@ yyreduce:
     {
         case 4:
 /* Line 1792 of yacc.c  */
-#line 34 "exp1.y"
+#line 29 "exp1.y"
     {printf("QWORD %s\n",(yyvsp[(1) - (3)].str));}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 35 "exp1.y"
+#line 30 "exp1.y"
     {printf("Statement\n");}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 37 "exp1.y"
+#line 32 "exp1.y"
     {printf("DETNOM %s\n",(yyvsp[(1) - (2)].str));}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 38 "exp1.y"
+#line 33 "exp1.y"
     {printf("PROPN %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 41 "exp1.y"
+#line 36 "exp1.y"
     {printf("OBJECT %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 42 "exp1.y"
+#line 37 "exp1.y"
     {printf("V %s\n",(yyvsp[(1) - (1)].str));}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1398 "exp1.tab.c"
+#line 1393 "exp1.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1626,5 +1621,5 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 43 "exp1.y"
+#line 38 "exp1.y"
 

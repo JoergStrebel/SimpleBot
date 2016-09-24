@@ -12,11 +12,6 @@ int yywrap()
         return 1;
 } 
   
-int main()
-{
-        return yyparse();
-} 
-
 %}
 
 /*%define parse.trace true

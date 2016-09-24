@@ -6,6 +6,7 @@
 #include <hunspell/hunspell.h>
 
 #include "simplebot.h"
+#include "grammatik/exp1.tab.h"
 
 /* A static variable for holding the line. */
 static char *line_read = (char *)NULL;
@@ -44,9 +45,7 @@ int check_spelling(char *sLine)
   int j;
   
   /* copy string from readline to be safe*/
-  
-  savsLine=(char *)malloc(strlen(sLine)*sizeof(char));
-  strcpy(savsLine, sLine);
+  savsLine=strdup(sLine);
   
   /*tokenize string and spell-check the tokens*/
   for (j = 1, str1 = savsLine; ; j++, str1 = NULL) 
@@ -61,13 +60,14 @@ int check_spelling(char *sLine)
       iSpellResult=iSpellResult && Hunspell_spell(pSpeller, token);
   }
   
+  free(savsLine);
   return(iSpellResult);
 }
 
 int main(int argc, char* argv[]) 
 {
-    int *x = HELLO_X;
     char *sLineInp;
+    YY_BUFFER_STATE hdlParseBuf;
     
     printf("Hallo Welt!\n");
     
@@ -88,6 +88,11 @@ int main(int argc, char* argv[])
 	printf("Schreibfehler in Eingabe\n");
       }
       else printf("Ok.\n");
+      
+      /* parse input*/
+      hdlParseBuf=yy_scan_string (sLineInp);
+      yyparse();
+      yy_delete_buffer(hdlParseBuf);
       
     } /*while*/
     
