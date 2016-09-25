@@ -39,6 +39,93 @@ PATH: /usr/games
 ## Core tests. ##
 ## ----------- ##
 
+configure:1980: loading site script /usr/share/site/x86_64-unknown-linux-gnu
+| #!/bin/sh
+| # Site script for configure. It is resourced via $CONFIG_SITE environment varaible.
+| 
+| # If user did not specify libdir, guess the correct target:
+| # Use lib64 for 64 bit bi-arch targets, keep the default for the rest.
+| if test "$libdir" = '${exec_prefix}/lib' ; then
+| 
+| 	ac_config_site_64bit_host=NONE
+| 
+| 	case "$host" in
+| 	"" )
+| 		# User did not specify host target.
+| 		# The native platform x86_64 is a bi-arch platform.
+| 		# Try to detect cross-compilation to inferior architecture.
+| 
+| 		# We are trying to guess 32-bit target compilation. It's not as easy as
+| 		# it sounds, as there is possible several intermediate combinations.
+| 		ac_config_site_cross_to_32bit_host=NONE
+| 
+| 		# User defined -m32 in CFLAGS or CXXFLAGS:
+| 		# (It's sufficient for 32-bit, but alone may cause mis-behavior of some checks.)
+| 		case "$CFLAGS" in
+| 		*-m32*)
+| 			ac_config_site_cross_to_32bit_host=YES
+| 			;;
+| 		esac
+| 		case "$CXXFLAGS" in
+| 		*-m32*)
+| 			ac_config_site_cross_to_32bit_host=YES
+| 			;;
+| 		esac
+| 
+| 		# Running with linux32:
+| 		# (Changes detected platform, but not the toolchain target.)
+| 		case "`/bin/uname -i`" in
+| 		x86_64 | ppc64 | s390x )
+| 			;;
+| 		* )
+| 			ac_config_site_cross_to_32bit_host=YES
+| 			;;
+| 		esac
+| 
+| 		if test "x$ac_config_site_cross_to_32bit_host" = xNONE; then
+| 			ac_config_site_64bit_host=YES
+| 		fi
+| 
+| 		;;
+| 	*x86_64* | *ppc64* | *s390x* )
+| 		ac_config_site_64bit_host=YES
+| 		;;
+| 	esac
+| 
+| 	if test "x$ac_config_site_64bit_host" = xYES; then
+| 		libdir='${exec_prefix}/lib64'
+| 	fi
+| fi
+| 
+| # If user did not specify libexecdir, set the correct target:
+| # Nor FHS nor openSUSE allow prefix/libexec. Let's default to prefix/lib.
+| 
+| if test "$libexecdir" = '${exec_prefix}/libexec' ; then
+| 	libexecdir='${exec_prefix}/lib'
+| fi
+| 
+| # Continue with the standard behavior of configure defined in AC_SITE_LOAD:
+| if test "x$prefix" != xNONE; then
+| 	ac_site_file1=$prefix/share/config.site
+| 	ac_site_file2=$prefix/etc/config.site
+| else
+| 	ac_site_file1=$ac_default_prefix/share/config.site
+| 	ac_site_file2=$ac_default_prefix/etc/config.site
+| fi
+| for ac_site_file in "$ac_site_file1" "$ac_site_file2"
+| do
+| 	test "x$ac_site_file" = xNONE && continue
+| 	if test /dev/null != "$ac_site_file" && test -r "$ac_site_file"; then
+| 		{ $as_echo "/usr/share/site/x86_64-unknown-linux-gnu:${as_lineno-$LINENO}: loading site script $ac_site_file" >&5
+| $as_echo "/usr/share/site/x86_64-unknown-linux-gnu: loading site script $ac_site_file" >&6;}
+| 		sed 's/^/| /' "$ac_site_file" >&5
+| 		. "$ac_site_file" \
+| 			|| { { $as_echo "/usr/share/site/x86_64-unknown-linux-gnu:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+| $as_echo "/usr/share/site/x86_64-unknown-linux-gnu: error: in \`$ac_pwd':" >&2;}
+| as_fn_error $? "failed to load site script $ac_site_file
+| See \`config.log' for more details" "$LINENO" 5; }
+| 	fi
+| done
 configure:2123: checking for a BSD-compatible install
 configure:2191: result: /usr/bin/install -c
 configure:2202: checking whether build environment is sane
@@ -399,8 +486,8 @@ htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
 install_sh='${SHELL} /home/jstrebel/devel/SimpleBot/install-sh'
-libdir='${exec_prefix}/lib'
-libexecdir='${exec_prefix}/libexec'
+libdir='${exec_prefix}/lib64'
+libexecdir='${exec_prefix}/lib'
 localedir='${datarootdir}/locale'
 localstatedir='${prefix}/var'
 mandir='${datarootdir}/man'

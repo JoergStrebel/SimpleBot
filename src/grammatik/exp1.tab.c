@@ -98,10 +98,7 @@ int yywrap()
 # define YYERROR_VERBOSE 0
 #endif
 
-/* In a future release of Bison, this section will be replaced
-   by #include "exp1.tab.h".  */
-#ifndef YY_YY_EXP1_TAB_H_INCLUDED
-# define YY_YY_EXP1_TAB_H_INCLUDED
+
 /* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -137,7 +134,7 @@ char* str;
 
 
 /* Line 387 of yacc.c  */
-#line 141 "exp1.tab.c"
+#line 138 "exp1.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -160,12 +157,12 @@ int yyparse ();
 #endif
 #endif /* ! YYPARSE_PARAM */
 
-#endif /* !YY_YY_EXP1_TAB_H_INCLUDED  */
+
 
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 169 "exp1.tab.c"
+#line 166 "exp1.tab.c"
 
 #ifdef short
 # undef short
@@ -1389,7 +1386,7 @@ yyreduce:
 
 
 /* Line 1792 of yacc.c  */
-#line 1393 "exp1.tab.c"
+#line 1390 "exp1.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
