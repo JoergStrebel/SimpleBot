@@ -6,7 +6,8 @@
 
 %}
 
-DIGIT    [0-9]
+DIGIT		[0-9]
+LETTER		[a-zA-ZäüöÄÖÜ]
 
 %%
 {DIGIT}+   		{yylval.str = strdup(yytext); return INTNUMBER;}
@@ -16,6 +17,7 @@ Hund|Tisch|Baum|Fisch 	{yylval.str = strdup(yytext); return OBJECT;}
 interessierte|großer|kleiner	 {yylval.str = strdup(yytext); return ADJ;}
 ist			 {yylval.str = strdup(yytext); return V;}
 Was|Wer			{yylval.str = strdup(yytext); return QWORD;}
+{LETTER}+		{yylval.str = strdup(yytext); return NUNKNOWN;}
 [ \t]+        putchar( ' ' );
 [ \t]+$
 %%

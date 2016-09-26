@@ -6,7 +6,8 @@
 #include <hunspell/hunspell.h>
 
 #include "simplebot.h"
-#include "grammatik/lex.yy.h"
+#include "common.h"
+#include "grammatik/exp1.tab.h"
 
 
 /* A static variable for holding the line. */
@@ -68,8 +69,7 @@ int check_spelling(char *sLine)
 int main(int argc, char* argv[]) 
 {
     char *sLineInp;
-    YY_BUFFER_STATE hdlParseBuf;
-    
+        
     printf("Hallo Welt!\n");
     
     /* Dictionary path on openSuse 13.2
@@ -88,12 +88,10 @@ int main(int argc, char* argv[])
       {
 	printf("Schreibfehler in Eingabe\n");
       }
-      else printf("Ok.\n");
+      else printf("Rechtschreibung ok.\n");
       
-      /* parse input*/
-      hdlParseBuf=yy_scan_string (sLineInp);
-      yyparse();
-      yy_delete_buffer(hdlParseBuf);
+      /* Call parser with input*/
+      parser_wrap(sLineInp);
       
     } /*while*/
     

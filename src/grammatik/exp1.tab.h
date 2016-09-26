@@ -52,7 +52,8 @@ extern int yydebug;
      OBJECT = 261,
      ADJ = 262,
      V = 263,
-     QWORD = 264
+     QWORD = 264,
+     NUNKNOWN = 265
    };
 #endif
 
@@ -61,13 +62,13 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 21 "exp1.y"
+#line 40 "exp1.y"
 char* str;
   double val;
 
 
 /* Line 2058 of yacc.c  */
-#line 71 "exp1.tab.h"
+#line 72 "exp1.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

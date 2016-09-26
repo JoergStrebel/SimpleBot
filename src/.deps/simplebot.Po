@@ -22,13 +22,8 @@ simplebot.o: simplebot.c /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/readline/keymaps.h /usr/include/readline/chardefs.h \
  /usr/include/ctype.h /usr/include/readline/tilde.h \
  /usr/include/readline/history.h /usr/include/hunspell/hunspell.h \
- /usr/include/hunspell/hunvisapi.h simplebot.h grammatik/lex.yy.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/unistd.h /usr/include/bits/posix_opt.h \
- /usr/include/bits/environments.h /usr/include/bits/confname.h \
- /usr/include/getopt.h
+ /usr/include/hunspell/hunvisapi.h simplebot.h common.h \
+ grammatik/exp1.tab.h
 
 /usr/include/stdc-predef.h:
 
@@ -130,26 +125,6 @@ simplebot.o: simplebot.c /usr/include/stdc-predef.h /usr/include/stdio.h \
 
 simplebot.h:
 
-grammatik/lex.yy.h:
+common.h:
 
-/usr/include/errno.h:
-
-/usr/include/bits/errno.h:
-
-/usr/include/linux/errno.h:
-
-/usr/include/asm/errno.h:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/unistd.h:
-
-/usr/include/bits/posix_opt.h:
-
-/usr/include/bits/environments.h:
-
-/usr/include/bits/confname.h:
-
-/usr/include/getopt.h:
+grammatik/exp1.tab.h:
