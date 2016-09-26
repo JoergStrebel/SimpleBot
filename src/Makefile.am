@@ -6,4 +6,4 @@ SUBDIRS = grammatik
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 bin_PROGRAMS = simplebot 
-simplebot_SOURCES = simplebot.c simplebot.h grammatik/exp1.tab.c ./grammatik/exp1.tab.h ./grammatik/lex.yy.c ./grammatik/lex.yy.h
+simplebot_SOURCES = simplebot.c simplebot.h grammatik/exp1.tab.c ./grammatik/exp1.tab.h ./grammatik/lex.yy.c ./grammatik/lex.yy.h common.h

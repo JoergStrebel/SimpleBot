@@ -286,7 +286,7 @@ top_srcdir = ..
 AM_CFLAGS = -pedantic -Wall -O2
 AM_LDFLAGS = -lreadline -lhunspell
 SUBDIRS = grammatik
-simplebot_SOURCES = simplebot.c simplebot.h grammatik/exp1.tab.c ./grammatik/exp1.tab.h ./grammatik/lex.yy.c ./grammatik/lex.yy.h
+simplebot_SOURCES = simplebot.c simplebot.h grammatik/exp1.tab.c ./grammatik/exp1.tab.h ./grammatik/lex.yy.c ./grammatik/lex.yy.h common.h
 all: all-recursive
 
 .SUFFIXES:
