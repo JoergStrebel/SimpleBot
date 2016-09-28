@@ -18,10 +18,10 @@ int yywrap()
   convenience function for input/output to the parser module 
   returns an array of tagged words  
 */
-struct stWord** parser_wrap(char* sLineInput)
+wtag** parser_wrap(char* sLineInput)
 {
       YY_BUFFER_STATE hdlParseBuf;
-      struct stWord* spTmp;
+      wtag* spTmp;
 
       /* parse input*/
       hdlParseBuf=yy_scan_string (sLineInput);

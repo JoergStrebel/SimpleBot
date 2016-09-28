@@ -11,7 +11,7 @@ LETTER		[a-zA-ZäüöÄÖÜ]
 
 %%
 {DIGIT}+   		{yylval.str = strdup(yytext); return INTNUMBER;}
-Nutzer|Bot 		{yylval.str = strdup(yytext); return PROPN;}
+Nutzer|SimpleBot 		{yylval.str = strdup(yytext); return PROPN;}
 der|ein 		{yylval.str = strdup(yytext); return DETNOM;}
 Hund|Tisch|Baum|Fisch 	{yylval.str = strdup(yytext); return OBJECT;}
 interessierte|großer|kleiner	 {yylval.str = strdup(yytext); return ADJ;}
