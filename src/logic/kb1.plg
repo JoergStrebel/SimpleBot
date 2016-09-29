@@ -1,0 +1,36 @@
+% http://lpn.swi-prolog.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse1
+% Coding convention: Atoms immer in Anführungszeichen, Variablen immer groß geschrieben
+% listing(). um Code in der Kommandozeile abzufragen.
+
+'mia'. %Atoms
+'jody'.
+'yolanda'.
+'vincent'.
+'marsellus'.
+'happy'. %Stelligkeit 0
+'Werner'.
+'Hans'.
+
+woman('mia'). %predicate
+woman('jody'). %predicate
+woman('yolanda').%predicate
+% playsAirGuitar(jody).
+ 
+happy('yolanda').%predicate, Stelligkeit 1
+listens2Music('mia').%predicate
+listens2Music('yolanda'):- happy('yolanda').
+playsAirGuitar('mia'):- listens2Music('mia').
+playsAirGuitar('yolanda'):- listens2Music('yolanda'), 'mia'. %Komma ist "und", Strichpunkt ist "oder"
+playsAirGuitar('jody'):- listens2Music('jody').
+
+gooddancer('vincent').
+loves('vincent','mia').
+loves('marsellus','mia'). %parameterreihenfolge ist von Bedeutung
+loves('mia',X):- gooddancer(X).
+
+jealous(X,Y):- loves(X,Z), loves(Y,Z). %X ist eifersüchtig auf Y, Regel aber falsch, da sie auch gilt für X=Y.
+
+vertical(line(point(X,Y),point(X,Z))).
+horizontal(line(point(X,Y),point(Z,Y))).
+
+
