@@ -12,6 +12,8 @@ wort(möbel, [is_a = objekt]).
 wort(pflanze, [is_a = objekt]).
 wort(objekt, [is_a = alles]).
 
+wort(test1, ['göbel ist gut']).
+
 wort(simplebot, [instance_of = chatbot]).
 wort(nutzer, [instance_of = mensch]).
 
