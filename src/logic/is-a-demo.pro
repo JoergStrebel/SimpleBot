@@ -1,18 +1,18 @@
+:- module(database, [eigenschaft/3]).
+
 % Prolog-Test
 
 % Fakten
 
-wort(hund, [is_a = tier]).
-wort(tisch, [is_a = möbel]).
-wort(baum, [is_a = pflanze]).
-wort(fisch, [is_a = tier]).
+wort('Hund', [is_a = tier]).
+wort('Tisch', [is_a = möbel]).
+wort('Baum', [is_a = pflanze]).
+wort('Fisch', [is_a = tier]).
 
 wort(tier, [is_a = objekt]).
 wort(möbel, [is_a = objekt]).
 wort(pflanze, [is_a = objekt]).
 wort(objekt, [is_a = alles]).
-
-wort(test1, ['göbel ist gut']).
 
 wort(simplebot, [instance_of = chatbot]).
 wort(nutzer, [instance_of = mensch]).

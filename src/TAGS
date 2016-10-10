@@ -1,0 +1,639 @@
+
+common.h,144
+#define FILE_FOO_SEEN3,62
+typedef struct stWord5,85
+    char* strWord;7,109
+    unsigned int iRole;8,128
+    int iPos;9,152
+} wtag;10,166
+
+Makefile,8109
+am__is_gnu_make 18,598
+am__make_running_with_option 19,669
+      *) echo "am__make_running_with_option:*) echo "am__make_running_with_option22,747
+  has_opt=26,917
+  sane_makeflags=27,933
+    sane_makeflags=29,997
+        bs=33,1083
+        sane_makeflags=34,1100
+  skip_next=38,1224
+    flg=41,1270
+    test $$skip_next test $$skip_next44,1368
+      *=46,1449
+        -*I) strip_trailopt 'I'; skip_next=-*I) strip_trailopt 'I'; skip_next47,1477
+        -*O) strip_trailopt 'O'; skip_next=-*O) strip_trailopt 'O'; skip_next49,1564
+        -*l) strip_trailopt 'l'; skip_next=-*l) strip_trailopt 'l'; skip_next51,1651
+      -[dEDm]) skip_next=-[dEDm]) skip_next53,1738
+      -[JT]) skip_next=-[JT]) skip_next54,1771
+      *$$target_option*) has_opt=*$$target_option*) has_opt57,1834
+  test $$has_opt test $$has_opt60,1904
+am__make_dryrun 61,1927
+am__make_keepgoing 62,1996
+pkgdatadir 63,2068
+pkgincludedir 64,2102
+pkglibdir 65,2142
+pkglibexecdir 66,2174
+am__cd 67,2214
+install_sh_DATA 68,2273
+install_sh_PROGRAM 69,2315
+install_sh_SCRIPT 70,2353
+INSTALL_HEADER 71,2390
+transform 72,2423
+NORMAL_INSTALL 73,2461
+PRE_INSTALL 74,2480
+POST_INSTALL 75,2496
+NORMAL_UNINSTALL 76,2513
+PRE_UNINSTALL 77,2534
+POST_UNINSTALL 78,2552
+bin_PROGRAMS 79,2571
+subdir 80,2605
+DIST_COMMON 81,2618
+ACLOCAL_M4 83,2701
+am__aclocal_m4_deps 84,2739
+am__configure_deps 85,2788
+mkinstalldirs 87,2875
+CONFIG_CLEAN_FILES 88,2908
+CONFIG_CLEAN_VPATH_FILES 89,2929
+am__installdirs 90,2956
+PROGRAMS 91,2996
+am_simplebot_OBJECTS 92,3023
+simplebot_OBJECTS 94,3105
+simplebot_LDADD 95,3149
+AM_V_P 96,3176
+am__v_P_ 97,3201
+am__v_P_0 98,3247
+am__v_P_1 99,3265
+AM_V_GEN 100,3279
+am__v_GEN_ 101,3308
+am__v_GEN_0 102,3358
+am__v_GEN_1 103,3395
+AM_V_at 104,3410
+am__v_at_ 105,3437
+am__v_at_0 106,3485
+am__v_at_1 107,3500
+DEFAULT_INCLUDES 108,3514
+depcomp 109,3537
+am__depfiles_maybe 110,3578
+am__mv 111,3608
+AM_V_lt 112,3623
+am__v_lt_ 113,3650
+am__v_lt_0 114,3698
+am__v_lt_1 115,3720
+COMPILE 116,3734
+AM_V_CC 118,3843
+am__v_CC_ 119,3870
+am__v_CC_0 120,3918
+am__v_CC_1 121,3954
+CCLD 122,3968
+LINK 123,3981
+AM_V_CCLD 124,4050
+am__v_CCLD_ 125,4081
+am__v_CCLD_0 126,4133
+am__v_CCLD_1 127,4171
+SOURCES 128,4187
+DIST_SOURCES 129,4218
+RECURSIVE_TARGETS 130,4254
+am__can_run_installinfo 138,4688
+RECURSIVE_CLEAN_TARGETS 143,4831
+am__recursive_targets 145,4946
+AM_RECURSIVE_TARGETS 149,5061
+am__tagged_files 151,5143
+am__uniquify_input 155,5360
+  BEGIN { nonempty BEGIN { nonempty156,5391
+  { items[$$0] { items[$$0]157,5419
+am__define_uniq_tagged_files 163,5693
+  list=164,5726
+  unique=165,5758
+ETAGS 168,5890
+CTAGS 169,5904
+DIST_SUBDIRS 170,5918
+DISTFILES 171,5944
+am__relativize 172,6013
+  dir0=173,6032
+  sed_first=174,6048
+  sed_rest=175,6087
+  sed_last=176,6116
+  sed_butlast=177,6154
+    first=179,6218
+    if test "$$first" !=if test "$$first" !180,6270
+      if test "$$first" if test "$$first"181,6307
+        dir2=182,6346
+        dir0=183,6409
+        first2=185,6479
+        if test "$$first2" if test "$$first2"186,6536
+          dir2=187,6583
+          dir2=189,6654
+        dir0=191,6698
+    dir1=194,6755
+  reldir=196,6815
+ACLOCAL 197,6833
+AMTAR 198,6904
+AM_DEFAULT_VERBOSITY 199,6924
+AUTOCONF 200,6949
+AUTOHEADER 201,7017
+AUTOMAKE 202,7089
+AWK 203,7162
+CC 204,7173
+CCDEPMODE 205,7182
+CFLAGS 206,7207
+CPP 207,7223
+CPPFLAGS 208,7236
+CYGPATH_W 209,7248
+DEFS 210,7265
+DEPDIR 211,7850
+ECHO_C 212,7865
+ECHO_N 213,7875
+ECHO_T 214,7887
+EGREP 215,7897
+EXEEXT 216,7922
+GREP 217,7932
+INSTALL 218,7953
+INSTALL_DATA 219,7983
+INSTALL_PROGRAM 220,8016
+INSTALL_SCRIPT 221,8045
+INSTALL_STRIP_PROGRAM 222,8073
+LDFLAGS 223,8117
+LIBOBJS 224,8128
+LIBS 225,8139
+LTLIBOBJS 226,8169
+MAKEINFO 227,8182
+MKDIR_P 228,8250
+OBJEXT 229,8278
+PACKAGE 230,8289
+PACKAGE_BUGREPORT 231,8309
+PACKAGE_NAME 232,8353
+PACKAGE_STRING 233,8378
+PACKAGE_TARNAME 234,8409
+PACKAGE_URL 235,8437
+PACKAGE_VERSION 236,8452
+PATH_SEPARATOR 237,8474
+SET_MAKE 238,8493
+SHELL 239,8505
+STRIP 240,8521
+VERSION 241,8530
+abs_builddir 242,8544
+abs_srcdir 243,8594
+abs_top_builddir 244,8642
+abs_top_srcdir 245,8692
+ac_ct_CC 246,8740
+am__include 247,8755
+am__leading_dot 248,8777
+am__quote 249,8797
+am__tar 250,8810
+am__untar 251,8850
+bindir 252,8879
+build_alias 253,8907
+builddir 254,8922
+datadir 255,8935
+datarootdir 256,8960
+docdir 257,8990
+dvidir 258,9037
+exec_prefix 259,9056
+host_alias 260,9080
+htmldir 261,9094
+includedir 262,9114
+infodir 263,9145
+install_sh 264,9175
+libdir 265,9239
+libexecdir 266,9269
+localedir 267,9301
+localstatedir 268,9335
+mandir 269,9365
+mkdir_p 270,9393
+oldincludedir 271,9414
+pdfdir 272,9443
+prefix 273,9462
+program_transform_name 274,9482
+psdir 275,9514
+sbindir 276,9532
+sharedstatedir 277,9562
+srcdir 278,9593
+sysconfdir 279,9604
+target_alias 280,9631
+top_build_prefix 281,9647
+top_builddir 282,9670
+top_srcdir 283,9688
+AM_CFLAGS 286,9766
+AM_LDFLAGS 287,9798
+SUBDIRS 288,9833
+simplebot_SOURCES 289,9853
+all:all290,9992
+.SUFFIXES:.SUFFIXES292,10012
+.SUFFIXES:.SUFFIXES293,10023
+$(srcdir)/Makefile.in:$(srcdir)/Makefile.in294,10045
+.PRECIOUS:.PRECIOUS306,10488
+Makefile:Makefile307,10508
+$(top_builddir)/config.status:$(top_builddir)/config.status316,10881
+$(top_srcdir)/configure:$(top_srcdir)/configure319,11026
+$(ACLOCAL_M4)$(ACLOCAL_M4321,11133
+$(am__aclocal_m4_deps)$(am__aclocal_m4_deps323,11231
+install-binPROGRAMS:install-binPROGRAMS324,11255
+uninstall-binPROGRAMS:uninstall-binPROGRAMS353,12418
+clean-binPROGRAMS:clean-binPROGRAMS364,12795
+simplebot$(EXEEXT)simplebot$(EXEEXT367,12868
+mostlyclean-compile:mostlyclean-compile371,13065
+distclean-compile:distclean-compile374,13107
+.c.o:.c.o381,13239
+.c.obj:.c.obj388,13496
+exp1.tab.o:exp1.tab.o395,13789
+exp1.tab.obj:exp1.tab.obj402,14459
+lex.yy.o:lex.yy.o409,15259
+lex.yy.obj:lex.yy.obj416,15913
+$(am__recursive_targets)$(am__recursive_targets429,17121
+ID:ID457,17859
+tags:tags459,17936
+TAGS:TAGS460,17957
+tags-am:tags-am462,17969
+ctags:ctags490,18794
+CTAGS:CTAGS492,18818
+ctags-am:ctags-am493,18831
+GTAGS:GTAGS499,19031
+cscopelist:cscopelist503,19151
+cscopelist-am:cscopelist-am505,19185
+distclean-tags:distclean-tags519,19527
+distdir:distdir522,19590
+check-am:check-am577,21723
+check:check578,21740
+all-am:all-am579,21763
+installdirs:installdirs580,21792
+installdirs-am:installdirs-am581,21827
+install:install585,21933
+install-exec:install-exec586,21960
+install-data:install-data587,21997
+uninstall:uninstall588,22034
+install-am:install-am590,22066
+installcheck:installcheck593,22144
+install-strip:install-strip594,22181
+mostlyclean-generic:mostlyclean-generic604,22610
+clean-generic:clean-generic606,22632
+distclean-generic:distclean-generic608,22648
+maintainer-clean-generic:maintainer-clean-generic612,22834
+clean:clean615,22986
+clean-am:clean-am617,23010
+distclean:distclean619,23068
+distclean-am:distclean-am622,23137
+dvi:dvi625,23215
+dvi-am:dvi-am627,23235
+html:html629,23244
+html-am:html-am631,23266
+info:info633,23276
+info-am:info-am635,23298
+install-data-am:install-data-am637,23308
+install-dvi:install-dvi639,23326
+install-dvi-am:install-dvi-am641,23362
+install-exec-am:install-exec-am643,23379
+install-html:install-html645,23417
+install-html-am:install-html-am647,23455
+install-info:install-info649,23473
+install-info-am:install-info-am651,23511
+install-man:install-man653,23529
+install-pdf:install-pdf655,23543
+install-pdf-am:install-pdf-am657,23579
+install-ps:install-ps659,23596
+install-ps-am:install-ps-am661,23630
+installcheck-am:installcheck-am663,23646
+maintainer-clean:maintainer-clean665,23664
+maintainer-clean-am:maintainer-clean-am668,23747
+mostlyclean:mostlyclean670,23807
+mostlyclean-am:mostlyclean-am672,23843
+pdf:pdf674,23900
+pdf-am:pdf-am676,23920
+ps:ps678,23929
+ps-am:ps-am680,23947
+uninstall-am:uninstall-am682,23955
+.MAKE:.MAKE684,23992
+.PHONY:.PHONY686,24050
+.NOEXPORT:.NOEXPORT703,24958
+
+Makefile.am,93
+AM_CFLAGS 2,61
+AM_LDFLAGS 3,93
+SUBDIRS 4,128
+bin_PROGRAMS 8,253
+simplebot_SOURCES 9,279
+
+Makefile.in,9354
+VPATH 17,569
+am__is_gnu_make 18,586
+am__make_running_with_option 19,657
+      *) echo "am__make_running_with_option:*) echo "am__make_running_with_option22,735
+  has_opt=26,905
+  sane_makeflags=27,921
+    sane_makeflags=29,985
+        bs=33,1071
+        sane_makeflags=34,1088
+  skip_next=38,1212
+    flg=41,1258
+    test $$skip_next test $$skip_next44,1356
+      *=46,1437
+        -*I) strip_trailopt 'I'; skip_next=-*I) strip_trailopt 'I'; skip_next47,1465
+        -*O) strip_trailopt 'O'; skip_next=-*O) strip_trailopt 'O'; skip_next49,1552
+        -*l) strip_trailopt 'l'; skip_next=-*l) strip_trailopt 'l'; skip_next51,1639
+      -[dEDm]) skip_next=-[dEDm]) skip_next53,1726
+      -[JT]) skip_next=-[JT]) skip_next54,1759
+      *$$target_option*) has_opt=*$$target_option*) has_opt57,1822
+  test $$has_opt test $$has_opt60,1892
+am__make_dryrun 61,1915
+am__make_keepgoing 62,1984
+pkgdatadir 63,2056
+pkgincludedir 64,2090
+pkglibdir 65,2130
+pkglibexecdir 66,2162
+am__cd 67,2202
+install_sh_DATA 68,2261
+install_sh_PROGRAM 69,2303
+install_sh_SCRIPT 70,2341
+INSTALL_HEADER 71,2378
+transform 72,2411
+NORMAL_INSTALL 73,2449
+PRE_INSTALL 74,2468
+POST_INSTALL 75,2484
+NORMAL_UNINSTALL 76,2501
+PRE_UNINSTALL 77,2522
+POST_UNINSTALL 78,2540
+bin_PROGRAMS 79,2559
+subdir 80,2593
+DIST_COMMON 81,2606
+ACLOCAL_M4 83,2689
+am__aclocal_m4_deps 84,2727
+am__configure_deps 85,2776
+mkinstalldirs 87,2863
+CONFIG_CLEAN_FILES 88,2896
+CONFIG_CLEAN_VPATH_FILES 89,2917
+am__installdirs 90,2944
+PROGRAMS 91,2984
+am_simplebot_OBJECTS 92,3011
+simplebot_OBJECTS 94,3093
+simplebot_LDADD 95,3137
+AM_V_P 96,3164
+am__v_P_ 97,3191
+am__v_P_0 98,3228
+am__v_P_1 99,3246
+AM_V_GEN 100,3260
+am__v_GEN_ 101,3291
+am__v_GEN_0 102,3332
+am__v_GEN_1 103,3369
+AM_V_at 104,3384
+am__v_at_ 105,3413
+am__v_at_0 106,3452
+am__v_at_1 107,3467
+DEFAULT_INCLUDES 108,3481
+depcomp 109,3514
+am__depfiles_maybe 110,3555
+am__mv 111,3585
+AM_V_lt 112,3600
+am__v_lt_ 113,3629
+am__v_lt_0 114,3668
+am__v_lt_1 115,3690
+COMPILE 116,3704
+AM_V_CC 118,3813
+am__v_CC_ 119,3842
+am__v_CC_0 120,3881
+am__v_CC_1 121,3917
+CCLD 122,3931
+LINK 123,3944
+AM_V_CCLD 124,4013
+am__v_CCLD_ 125,4046
+am__v_CCLD_0 126,4089
+am__v_CCLD_1 127,4127
+SOURCES 128,4143
+DIST_SOURCES 129,4174
+RECURSIVE_TARGETS 130,4210
+am__can_run_installinfo 138,4644
+RECURSIVE_CLEAN_TARGETS 143,4787
+am__recursive_targets 145,4902
+AM_RECURSIVE_TARGETS 149,5017
+am__tagged_files 151,5099
+am__uniquify_input 155,5316
+  BEGIN { nonempty BEGIN { nonempty156,5347
+  { items[$$0] { items[$$0]157,5375
+am__define_uniq_tagged_files 163,5649
+  list=164,5682
+  unique=165,5714
+ETAGS 168,5846
+CTAGS 169,5860
+DIST_SUBDIRS 170,5874
+DISTFILES 171,5900
+am__relativize 172,5969
+  dir0=173,5988
+  sed_first=174,6004
+  sed_rest=175,6043
+  sed_last=176,6072
+  sed_butlast=177,6110
+    first=179,6174
+    if test "$$first" !=if test "$$first" !180,6226
+      if test "$$first" if test "$$first"181,6263
+        dir2=182,6302
+        dir0=183,6365
+        first2=185,6435
+        if test "$$first2" if test "$$first2"186,6492
+          dir2=187,6539
+          dir2=189,6610
+        dir0=191,6654
+    dir1=194,6711
+  reldir=196,6771
+ACLOCAL 197,6789
+AMTAR 198,6809
+AM_DEFAULT_VERBOSITY 199,6825
+AUTOCONF 200,6871
+AUTOHEADER 201,6893
+AUTOMAKE 202,6919
+AWK 203,6941
+CC 204,6953
+CCDEPMODE 205,6963
+CFLAGS 206,6987
+CPP 207,7005
+CPPFLAGS 208,7017
+CYGPATH_W 209,7039
+DEFS 210,7063
+DEPDIR 211,7077
+ECHO_C 212,7095
+ECHO_N 213,7113
+ECHO_T 214,7131
+EGREP 215,7149
+EXEEXT 216,7165
+GREP 217,7183
+INSTALL 218,7197
+INSTALL_DATA 219,7217
+INSTALL_PROGRAM 220,7247
+INSTALL_SCRIPT 221,7283
+INSTALL_STRIP_PROGRAM 222,7317
+LDFLAGS 223,7365
+LIBOBJS 224,7385
+LIBS 225,7405
+LTLIBOBJS 226,7419
+MAKEINFO 227,7443
+MKDIR_P 228,7465
+OBJEXT 229,7485
+PACKAGE 230,7503
+PACKAGE_BUGREPORT 231,7523
+PACKAGE_NAME 232,7563
+PACKAGE_STRING 233,7593
+PACKAGE_TARNAME 234,7627
+PACKAGE_URL 235,7663
+PACKAGE_VERSION 236,7691
+PATH_SEPARATOR 237,7727
+SET_MAKE 238,7761
+SHELL 239,7783
+STRIP 240,7799
+VERSION 241,7815
+abs_builddir 242,7835
+abs_srcdir 243,7865
+abs_top_builddir 244,7891
+abs_top_srcdir 245,7929
+ac_ct_CC 246,7963
+am__include 247,7985
+am__leading_dot 248,8013
+am__quote 249,8049
+am__tar 250,8073
+am__untar 251,8093
+bindir 252,8117
+build_alias 253,8135
+builddir 254,8163
+datadir 255,8185
+datarootdir 256,8205
+docdir 257,8233
+dvidir 258,8251
+exec_prefix 259,8269
+host_alias 260,8297
+htmldir 261,8323
+includedir 262,8343
+infodir 263,8369
+install_sh 264,8389
+libdir 265,8415
+libexecdir 266,8433
+localedir 267,8459
+localstatedir 268,8483
+mandir 269,8515
+mkdir_p 270,8533
+oldincludedir 271,8553
+pdfdir 272,8585
+prefix 273,8603
+program_transform_name 274,8621
+psdir 275,8671
+sbindir 276,8687
+sharedstatedir 277,8707
+srcdir 278,8741
+sysconfdir 279,8759
+target_alias 280,8785
+top_build_prefix 281,8815
+top_builddir 282,8853
+top_srcdir 283,8883
+AM_CFLAGS 286,8971
+AM_LDFLAGS 287,9003
+SUBDIRS 288,9038
+simplebot_SOURCES 289,9058
+all:all290,9197
+.SUFFIXES:.SUFFIXES292,9217
+.SUFFIXES:.SUFFIXES293,9228
+$(srcdir)/Makefile.in:$(srcdir)/Makefile.in294,9250
+.PRECIOUS:.PRECIOUS306,9693
+Makefile:Makefile307,9713
+$(top_builddir)/config.status:$(top_builddir)/config.status316,10086
+$(top_srcdir)/configure:$(top_srcdir)/configure319,10231
+$(ACLOCAL_M4)$(ACLOCAL_M4321,10338
+$(am__aclocal_m4_deps)$(am__aclocal_m4_deps323,10436
+install-binPROGRAMS:install-binPROGRAMS324,10460
+uninstall-binPROGRAMS:uninstall-binPROGRAMS353,11623
+clean-binPROGRAMS:clean-binPROGRAMS364,12000
+simplebot$(EXEEXT)simplebot$(EXEEXT367,12073
+mostlyclean-compile:mostlyclean-compile371,12270
+distclean-compile:distclean-compile374,12312
+.c.o:.c.o381,12564
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source384,12734
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR385,12830
+.c.obj:.c.obj388,12983
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source391,13172
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR392,13268
+exp1.tab.o:exp1.tab.o395,13438
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source398,13825
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR399,13947
+exp1.tab.obj:exp1.tab.obj402,14270
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source405,14723
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR406,14847
+lex.yy.o:lex.yy.o409,15232
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source412,15607
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR413,15727
+lex.yy.obj:lex.yy.obj416,16048
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source=@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source419,16489
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR420,16611
+$(am__recursive_targets)$(am__recursive_targets429,17418
+ID:ID457,18156
+tags:tags459,18233
+TAGS:TAGS460,18254
+tags-am:tags-am462,18266
+ctags:ctags490,19091
+CTAGS:CTAGS492,19115
+ctags-am:ctags-am493,19128
+GTAGS:GTAGS499,19328
+cscopelist:cscopelist503,19448
+cscopelist-am:cscopelist-am505,19482
+distclean-tags:distclean-tags519,19824
+distdir:distdir522,19887
+check-am:check-am577,22020
+check:check578,22037
+all-am:all-am579,22060
+installdirs:installdirs580,22089
+installdirs-am:installdirs-am581,22124
+install:install585,22230
+install-exec:install-exec586,22257
+install-data:install-data587,22294
+uninstall:uninstall588,22331
+install-am:install-am590,22363
+installcheck:installcheck593,22441
+install-strip:install-strip594,22478
+mostlyclean-generic:mostlyclean-generic604,22907
+clean-generic:clean-generic606,22929
+distclean-generic:distclean-generic608,22945
+maintainer-clean-generic:maintainer-clean-generic612,23131
+clean:clean615,23283
+clean-am:clean-am617,23307
+distclean:distclean619,23365
+distclean-am:distclean-am622,23434
+dvi:dvi625,23512
+dvi-am:dvi-am627,23532
+html:html629,23541
+html-am:html-am631,23563
+info:info633,23573
+info-am:info-am635,23595
+install-data-am:install-data-am637,23605
+install-dvi:install-dvi639,23623
+install-dvi-am:install-dvi-am641,23659
+install-exec-am:install-exec-am643,23676
+install-html:install-html645,23714
+install-html-am:install-html-am647,23752
+install-info:install-info649,23770
+install-info-am:install-info-am651,23808
+install-man:install-man653,23826
+install-pdf:install-pdf655,23840
+install-pdf-am:install-pdf-am657,23876
+install-ps:install-ps659,23893
+install-ps-am:install-ps-am661,23927
+installcheck-am:installcheck-am663,23943
+maintainer-clean:maintainer-clean665,23961
+maintainer-clean-am:maintainer-clean-am668,24044
+mostlyclean:mostlyclean670,24104
+mostlyclean-am:mostlyclean-am672,24140
+pdf:pdf674,24197
+pdf-am:pdf-am676,24217
+ps:ps678,24226
+ps-am:ps-am680,24244
+uninstall-am:uninstall-am682,24252
+.MAKE:.MAKE684,24289
+.PHONY:.PHONY686,24347
+.NOEXPORT:.NOEXPORT703,25255
+
+simplebot,16
+H‰H‰14,9364
+
+simplebot.c,145
+static char *line_read line_read14,275
+static Hunhandle * pSpeller;15,314
+char * rl_gets 19,417
+int check_spelling(41,887
+int main(69,1526
+
+simplebot.h,21
+#define HELLO_X 1,0
+
+simplebot.o,0
