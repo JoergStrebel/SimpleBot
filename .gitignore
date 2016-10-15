@@ -1,4 +1,5 @@
 autom4te.cache/*
 src/.deps/*
 *.o
+src/old_*
 

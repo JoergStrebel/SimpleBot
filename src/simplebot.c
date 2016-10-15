@@ -7,7 +7,6 @@
 
 #include "simplebot.h"
 #include "common.h"
-#include "grammatik/exp1.tab.h"
 
 
 /* A static variable for holding the line. */
@@ -89,9 +88,6 @@ int main(int argc, char* argv[])
 	printf("Schreibfehler in Eingabe\n");
       }
       else printf("Rechtschreibung ok.\n");
-      
-      /* Call parser with input*/
-      parser_wrap(sLineInp);
       
     } /*while*/
     

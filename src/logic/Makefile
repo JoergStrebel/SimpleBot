@@ -1,8 +1,8 @@
 
 pkg-config := $(shell pkg-config --cflags --libs swipl)
 
-all:iftest
+all:pl_if_test.o
 .PHONY:all
 
-iftest: pl_if_test.c
-	gcc $(pkg-config) -o iftest pl_if_test.c
+pl_if_test.o: pl_if_test.c
+	gcc $(pkg-config) -c -o pl_if_test.o pl_if_test.c
