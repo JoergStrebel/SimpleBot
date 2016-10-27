@@ -6,18 +6,15 @@
 #include <SWI-Prolog.h>
 
 
-int main(int argc, char **argv)
+int query(char* progname, char* strQuery)
 {
-
   char *av[4];
   int ac = 0;
   int rval;
   
-  printf("0tes Argument: %s\n",argv[0]);
-
-  av[ac++] = argv[0];
+  av[ac++] = progname;
   av[ac++] = "-l";
-  av[ac++] = "is-a-demo.pro";
+  av[ac++] = "dcg_deutsch.pro";
   av[ac]   = NULL;
 
   if ( !PL_initialise(ac, av) )
@@ -30,16 +27,14 @@ int main(int argc, char **argv)
       printf("success initializing!\n");
     }
 
-  /* Abfrage: ?- eigenschaft(hund,is_a,X).*/
- predicate_t pred = PL_predicate("eigenschaft",3,"database");
  
- term_t t0 = PL_new_term_refs(3);
+ predicate_t pred = PL_predicate("start",2,"database");
+ 
+ term_t t0 = PL_new_term_refs(2);
  term_t t1 = t0+1;
- term_t t2 = t0+2;
 
- PL_put_atom_chars(t0,"hund");
- PL_put_atom_chars(t1,"is_a");
- PL_put_variable(t2);
+ PL_put_string_chars(t0,"Was ist ein Hund");
+ PL_put_variable(t1);
 
  rval = PL_call_predicate(NULL, PL_Q_NORMAL, pred, t0);
  if (!rval )
@@ -50,9 +45,10 @@ int main(int argc, char **argv)
  else 
  {
    char* aresult;
-   PL_get_atom_chars(t2,&aresult);
+   int slen;
+   PL_get_string_chars(t1,&aresult,&slen);
    printf("success in query: %s \n", aresult);
-    PL_halt(0);
+   PL_halt(0);
  }
 
  return (rval);

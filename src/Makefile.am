@@ -6,7 +6,9 @@ SUBDIRS = logic
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 bin_PROGRAMS = simplebot 
-simplebot_SOURCES = simplebot.c simplebot.h logic/pl_if_test.c common.h
+simplebot_SOURCES = simplebot.c simplebot.h logic/pl_if_test.h common.h
+simplebot_LDADD = logic/pl_if_test.o
+
 
 
 

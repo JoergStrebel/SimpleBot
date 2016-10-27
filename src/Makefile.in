@@ -89,9 +89,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_simplebot_OBJECTS = simplebot.$(OBJEXT) pl_if_test.$(OBJEXT)
+am_simplebot_OBJECTS = simplebot.$(OBJEXT)
 simplebot_OBJECTS = $(am_simplebot_OBJECTS)
-simplebot_LDADD = $(LDADD)
+simplebot_DEPENDENCIES = logic/pl_if_test.o
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -108,10 +108,6 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_@AM_V@)
@@ -285,7 +281,8 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = -pedantic -Wall -O2
 AM_LDFLAGS = -lreadline -lhunspell
 SUBDIRS = logic
-simplebot_SOURCES = simplebot.c simplebot.h logic/pl_if_test.c common.h
+simplebot_SOURCES = simplebot.c simplebot.h logic/pl_if_test.h common.h
+simplebot_LDADD = logic/pl_if_test.o
 all: all-recursive
 
 .SUFFIXES:
@@ -373,7 +370,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pl_if_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/simplebot.Po@am__quote@
 
 .c.o:
@@ -389,20 +385,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
-
-pl_if_test.o: logic/pl_if_test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT pl_if_test.o -MD -MP -MF $(DEPDIR)/pl_if_test.Tpo -c -o pl_if_test.o `test -f 'logic/pl_if_test.c' || echo '$(srcdir)/'`logic/pl_if_test.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pl_if_test.Tpo $(DEPDIR)/pl_if_test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logic/pl_if_test.c' object='pl_if_test.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o pl_if_test.o `test -f 'logic/pl_if_test.c' || echo '$(srcdir)/'`logic/pl_if_test.c
-
-pl_if_test.obj: logic/pl_if_test.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT pl_if_test.obj -MD -MP -MF $(DEPDIR)/pl_if_test.Tpo -c -o pl_if_test.obj `if test -f 'logic/pl_if_test.c'; then $(CYGPATH_W) 'logic/pl_if_test.c'; else $(CYGPATH_W) '$(srcdir)/logic/pl_if_test.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pl_if_test.Tpo $(DEPDIR)/pl_if_test.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='logic/pl_if_test.c' object='pl_if_test.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o pl_if_test.obj `if test -f 'logic/pl_if_test.c'; then $(CYGPATH_W) 'logic/pl_if_test.c'; else $(CYGPATH_W) '$(srcdir)/logic/pl_if_test.c'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.

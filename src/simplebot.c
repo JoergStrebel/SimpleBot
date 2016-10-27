@@ -7,7 +7,7 @@
 
 #include "simplebot.h"
 #include "common.h"
-
+#include "logic/pl_if_test.h"
 
 /* A static variable for holding the line. */
 static char *line_read = (char *)NULL;
@@ -88,6 +88,8 @@ int main(int argc, char* argv[])
 	printf("Schreibfehler in Eingabe\n");
       }
       else printf("Rechtschreibung ok.\n");
+
+      query(argv[0],"");
       
     } /*while*/
     
