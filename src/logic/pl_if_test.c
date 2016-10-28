@@ -14,7 +14,7 @@ int query(char* progname, char* strQuery)
   
   av[ac++] = progname;
   av[ac++] = "-l";
-  av[ac++] = "dcg_deutsch.pro";
+  av[ac++] = "./logic/dcg_deutsch.pro";
   av[ac]   = NULL;
 
   if ( !PL_initialise(ac, av) )
