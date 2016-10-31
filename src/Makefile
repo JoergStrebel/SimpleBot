@@ -15,5 +15,6 @@ simplebot.o: simplebot.c simplebot.h logic/pl_if_test.h common.h
 	gcc -c $(CFLAGS) -o simplebot.o simplebot.c
 
 logic/pl_if_test.o: logic/pl_if_test.c
-	cd logic;make all
+	cd logic && $(MAKE)
+
 

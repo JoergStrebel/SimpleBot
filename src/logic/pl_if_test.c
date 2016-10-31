@@ -13,7 +13,7 @@ int query(char* progname, char* strQuery)
   int rval;
   
   av[ac++] = progname;
-  av[ac++] = "-l";
+  av[ac++] = "-q -l";
   av[ac++] = "./logic/dcg_deutsch.pro";
   av[ac]   = NULL;
 
