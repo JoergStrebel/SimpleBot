@@ -19,13 +19,6 @@ Jeder Satz soll eine Liste mit Atomen sein in der Form w(<Atom>), n(<Zahl>) und 
 [satz([w(ich),w(gehe),w(zu),w(fuß),s('.')]),satz([w(hilf),w(mir),s('!')])]
 */
 
-/* tokenize_string(+StrIn,-LSatz).*/
-tokenize_string(StrIn,LSatz). %TODO
-
-at_end_of_string(StrIn). %TODO
-peek_char_string(StrIn,Char). %TODO
-get_char_string(StrIn,Char). %TODO
-
 
 %%
 %% User-callable routines
@@ -68,49 +61,37 @@ tokenize_stream(Stream,Tokens) :-
    tokenize_stream(Stream,Tail).
 */   
 
-% tokenize_line(+Stream,-Tokens)
-%  Reads a line of input and returns a list of tokens.
-
-tokenize_line(Stream,Tokens) :-
-   tokenize_line_dl(Stream,Tokens/[]).
-
-
 % tokenize_line_dl(+Stream,-Tokens/Tail)
 %  Like tokenize_line, but uses a difference list.
 %  This makes it easier to append the results of successive calls.
 
-tokenize_line_dl(Stream,Tail/Tail) :-
-   at_end_of_stream(Stream),                        % unnecessary test?
+/* tokenize_string(+StrIn,-LSatz).*/
+tokenize_string(StrIn,Tokens) :- 
+	string_chars(StrIn,Chars), 
+	tokenize_line_dl(Chars,Tokens/_).
+
+at_end_of_string([]).
+
+tokenize_line_dl(CharList,_/[]) :-
+   at_end_of_string(CharList),                        
    !.
 
-tokenize_line_dl(Stream,Dlist) :-
-   get_char_and_type(Stream,Char,Type),
-   tokenize_line_x(Type,Char,Stream,Dlist).
-
-
-%%
-%% Auxiliary predicates for tokenization
-%%
-
-% get_char_and_type(+Stream,-Char,-Type)
-%  Reads a character, determines its type, and translates
-%  it as specified in char_type_char.
-
-get_char_and_type(Stream,Char,Type) :-
-   get_char(Stream,C),
-   char_type_char(C,Type,Char).
+tokenize_line_dl(CharList,Dlist) :-
+   get_char_and_type(CharList,Char,Type,ChLRest), %%hole das erste Zeichen
+   tokenize_line_x(Type,Char,ChLRest,Dlist).
 
 
 % tokenize_line_x(+Type,+Char,+Stream,-Tokens/Tail)
 %  Tokenizes (the rest of) a line of input.
 %  Type and Char describe the character that has been read ahead.
 
-tokenize_line_x(eol,_,_,Tail/Tail) :-               % end of line mark; terminate
+% Das stellt die Schleife über die Input Char List dar.
+tokenize_line_x(eol,_,_,_/[]) :-               % end of line mark; terminate
    !.
 
-tokenize_line_x(whitespace,_,Stream,Dlist) :-       % whitespace, skip it
+tokenize_line_x(whitespace,_,Rest,Dlist) :-       % whitespace, skip it
    !,
-   tokenize_line_dl(Stream,Dlist).
+   tokenize_line_dl(Rest,Dlist).
 
 
 % Word tokens and number tokens have to be completed,
@@ -118,17 +99,17 @@ tokenize_line_x(whitespace,_,Stream,Dlist) :-       % whitespace, skip it
 % NewChar and NewType are the character read ahead
 % after completing the token.
 
-tokenize_line_x(letter,Char,Stream,[w(T)|Tokens]/Tail) :-
+tokenize_line_x(letter,Char,CharList,[w(T)|Tail]/Tail) :-
    !,
-   tokenize_letters(letter,Char,Stream,T,NewType,NewChar),
-   tokenize_line_x(NewType,NewChar,Stream,Tokens/Tail).
+   tokenize_letters(letter,Char,CharList,T,NewType,NewChar,CL2),
+   tokenize_line_x(NewType,NewChar,CL2,Tokens/Tail).
 
-tokenize_line_x(digit,Char,Stream,[n(T)|Tokens]/Tail) :-
+tokenize_line_x(digit,Char,Stream,[n(T)|Tail]/Tail) :-
    !,
-   tokenize_digits(digit,Char,Stream,T,NewType,NewChar),
-   tokenize_line_x(NewType,NewChar,Stream,Tokens/Tail).
+   tokenize_digits(digit,Char,Stream,T,NewType,NewChar,Stream2),
+   tokenize_line_x(NewType,NewChar,Stream2,Tokens/Tail).
 
-
+/*
 % A period is handled like a digit if it is followed by a digit.
 % This handles numbers that are written with the decimal point first.
 
@@ -150,59 +131,51 @@ tokenize_line_x(_, ',', Stream,Dlist) :-
    !,
    % Start over, classifying ',' as a digit
    tokenize_line_x(digit, ',', Stream,Dlist).
-
+*/
 
 % Special characters and unidentified characters are easy:
 % they stand by themselves, and the next token begins with
 % the very next character.
 
-tokenize_line_x(special,Char,Stream,[s(Char)|Tokens]/Tail) :-   % special char
+tokenize_line_x(special,Char,Stream,[s(Char)|Tail]/Tail) :-   % special char
    !,
    tokenize_line_dl(Stream,Tokens/Tail).
 
-tokenize_line_x(_,Char,Stream,[other(Char)|Tokens]/Tail) :-     % unidentified char
+tokenize_line_x(_,Char,Stream,[other(Char)|Tail]/Tail) :-     % unidentified char
    !,
    tokenize_line_dl(Stream,Tokens/Tail).
 
 
 
-% tokenize_letters(+Type,+Char,+Stream,-Token,-NewChar,-NewType)
+% tokenize_letters(+Type,+Char,+Stream,-Token,-NewChar,-NewType,-Stream2)
 %   Completes a word token beginning with Char, which has
 %   been read ahead and identified as type Type.
 %   When the process ends, NewChar and NewType are the
 %   character that was read ahead after the token.
+%  Token ist eine Liste von aufeinanderfolgenden Buchstaben
+% Stream2 als neue verkürzte Inputliste
 
-tokenize_letters(letter,Char,Stream,[Char|Rest],NewType,NewChar) :-
+tokenize_letters(letter,Char,Stream,[Char|Rest],NewType,NewChar,Stream2) :-
    % It's a letter, so process it, read another character ahead, and recurse.
    !,
-   get_char_and_type(Stream,Char2,Type2),
-   tokenize_letters(Type2,Char2,Stream,Rest,NewType,NewChar).
+   get_char_and_type(Stream,Char2,Type2,Stream2),
+   tokenize_letters(Type2,Char2,Stream2,Rest,NewType,NewChar,_).
 
-tokenize_letters(_,'''',Stream,Rest,NewType,NewChar) :-
-   %
-   % Absorb an apostrophe, but only when it precedes t.
-   % This keeps words together like doesn't, won't.
-   %
-   peek_char(Stream,t),
-   !,
-   get_char(Stream,_),
-   tokenize_letters(letter,t,Stream,Rest,NewType,NewChar).
-
-tokenize_letters(Type,Char,_,[],Type,Char).
+tokenize_letters(Type,Char,CL1,[],Type,Char,CL1).
    % It's not a letter, so don't process it; pass it to the calling procedure.
 
 
-% tokenize_digits(+Type,+Char,+Stream,-Token,-NewChar,-NewType)
+% tokenize_digits(+Type,+Char,+Stream,-Token,-NewChar,-NewType, -Stream2)
 %   Like tokenize_letters, but completes a number token instead.
 %   Additional subtleties for commas and decimal points.
 
-tokenize_digits(digit,Char,Stream,[Char|Rest],NewType,NewChar) :-
+tokenize_digits(digit,Char,Stream,[Char|Rest],NewType,NewChar,Stream2) :-
    % It's a digit, so process it, read another character ahead, and recurse.
    !,
-   get_char_and_type(Stream,Char2,Type2),
-   tokenize_digits(Type2,Char2,Stream,Rest,NewType,NewChar).
+   get_char_and_type(Stream,Char2,Type2,Stream2),
+   tokenize_digits(Type2,Char2,Stream2,Rest,NewType,NewChar,_).
 
-tokenize_digits(_, '.', Stream,['.'|Rest],NewType,NewChar) :-
+/*tokenize_digits(_, '.', Stream,['.'|Rest],NewType,NewChar) :-
    peek_char(Stream,P),
    char_type_char(P,digit,Char2),
    !,
@@ -219,8 +192,9 @@ tokenize_digits(_, ',', Stream,[','|Rest],NewType,NewChar) :-
    % It's a comma followed by a digit, so include it and continue.
    get_char(Stream,_),
    tokenize_digits(digit,Char2,Stream,Rest,NewType,NewChar).
+*/
 
-tokenize_digits(Type,Char,_,[],Type,Char).
+tokenize_digits(Type,Char,CL1,[],Type,Char,CL1).
    % It's not any of those, so don't process it;
    % pass it to the calling procedure.
 
@@ -228,6 +202,18 @@ tokenize_digits(Type,Char,_,[],Type,Char).
 %%
 %% Character classification
 %%
+
+peek_char_string([H|_],H).
+
+% get_char_and_type(+InputStringList,-Char,-Type,-ResStrList)
+%  Reads a character, determines its type, and translates
+%  it as specified in char_type_char.
+
+get_char_and_type([H|T],Char,Type,T) :-
+   char_type_char(H,Type,Char).
+
+get_char_and_type([],end_of_file,eol,[]).
+
 
 % char_type_char(+Char,-Type,-TranslatedChar)
 %   Classifies all characters as letter, digit, special, etc.,
@@ -238,7 +224,6 @@ char_type_char(Char,Type,Tr) :-
    char_table(Char,Type,Tr),
    !.
 
-% Donald changed this from special to letter.
 % Using downcase_atom saves having an enormous table
 % and should handle all languages.
 char_type_char(Char,letter,Char2) :-
