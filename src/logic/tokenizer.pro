@@ -25,13 +25,54 @@ tokenize_string(StrIn,Tokens) :-
 	string_chars(StrIn,Chars), 
 	label_all_chars(Chars,LChars),
 	collect_words(LChars,WList),
-	delete(WList,l(_),Tokens)
+	collect_numbers(WList,WNrList),
+	delete(WNrList,w(_),Tokens)
 .
 
-/* collect_word(+List of Tokens, -List of words)
+/* collect_words(+List of Tokens, -List with words)
+*/
+collect_words(LTokens, WList):-
+  agg_find_all_words(LTokens,[],Erlist),
+  reverse(Erlist,WList).
+
+agg_find_all_words([],Agg,Agg):-!.
+
+agg_find_all_words([w(_),l(H2)|T],Agg,Outputliste):-
+    find_word([l(H2)|T],[],Result,Rest),
+    reverse(Result,RevResult),
+    agg_find_all_words(Rest,[word(RevResult)|Agg],Outputliste),
+    !.
+
+agg_find_all_words([l(H1),l(H2)|T],Agg,Outputliste):-
+    find_word([l(H1),l(H2)|T],[],Result,Rest),
+    reverse(Result,RevResult),
+    agg_find_all_words(Rest,[word(RevResult)|Agg],Outputliste),
+    !.
+
+% not a word start - just copy the token to the output
+agg_find_all_words([H|T],Agg,Outputliste):-
+    agg_find_all_words(T,[H|Agg],Outputliste).
+
+
+/* completes a word; LInp starts with a word 
+find_word(+LInp,-LWord, -Result, -Rest)
+*/
+find_word([l(T)|LInp], Agg, Result, Rest):-
+    find_word(LInp,[T|Agg], Result, Rest),
+    !.
+
+find_word([], LWord, LWord,[]):-!.
+
+% not a letter, stop recursion
+find_word([T|LInp], LWord, LWord,[T|LInp]).
+
+
+
+/* collect_numbers(+List of Tokens, -List with numbers)
 TODO
 */
-collect_words(LTokens, WList). 
+collect_numbers(LTokens, NrList):-
+    LTokens=NrList.
 
 
 /* labele alle Chars in der Liste 
@@ -49,9 +90,8 @@ agg_label_all_chars([H|T],Agg,Outputliste):-
     label_char(TChar,Type,ListElem),
     agg_label_all_chars(T,[ListElem|Agg],Outputliste).
 
-label_char(H,eol,eol(H)):-!.
-label_char(H,letter,w(H)):-!.
-label_char(H,whitespace,l(H)):-!.
+label_char(H,letter,l(H)):-!.
+label_char(H,whitespace,w(H)):-!.
 label_char(H,special,s(H)):-!.    
 label_char(H,digit,d(H)):-!.    
 
@@ -75,14 +115,13 @@ char_type_char(Char,letter,Char2) :-
    downcase_atom(L2,L3),
    atom_chars(L3,[Char2]).  
 
-% End of line marks
-char_table('\n',        eol, '\n'       ).
 
 % Whitespace characters
+char_table('\n', whitespace, '\n'  ).
 char_table(' ',     whitespace,  ' ').     % blank
 char_table('\t',    whitespace,  ' ').     % tab
 char_table('\r',    whitespace,  ' ').     % return
-char_table('''',    whitespace, '''').     % apostrophe does not translate to blank
+%char_table('''',    whitespace, '''').     % apostroph wird als normaler Buchstabe behandelt.
 
 % Donald removed the letter characters and replaced them by special characters.
 % There are too many Unicode letters to put them all in a table.
