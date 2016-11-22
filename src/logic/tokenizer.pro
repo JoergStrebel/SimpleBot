@@ -6,6 +6,8 @@ Funktionen des Tokenizers:
  - Erkennung von  Interpunktionszeichen
  - Erkennung von Zahlen
  - Aufspaltung des Inputs in mehrere Sätze, falls nötig
+ - Ersetzung von Abkürzungen (z.B. Hr.)
+ - Erkennung von Datümern (z.B. 13.12.2016)
 
 D.h der Tokenizer soll einen String nehmen und dann einen oder mehrere Sätze zurückliefern.
 Jeder Satz soll eine Liste mit Atomen sein in der Form w(<Atom>), n(<Zahl>). D.h. die Datenstruktur sieht dann so aus (am Beispiel des Satzes 'Ich gehe zu Fuß. Hilf mir!'):
@@ -23,8 +25,24 @@ tokenize_string(StrIn,SenList) :-
 	collect_words(LChars,WList),
 	collect_numbers(WList,WNrList),
 	delete(WNrList,w(_),LSatz),
-	collect_sentences(LSatz,SenList)
+	ersetze_abkürzungen(LSatz,LExSatz),
+	collect_sentences(LExSatz,SenList)
 	.
+
+/* Ersetze Abkürzungen. Wichtig für die Filterung von Punkten vor der Satzerkennung 
+   ersetze_abkürzungen(+Wortliste,-expandierte Wortliste)
+   Vorgehen: nimm alle Abkürzungen und suche&ersetze sie im Satz
+   TODO: prüfe alle Abkürzungen mittels findall(abkürz(A,B),abkürz(A,B),D)
+*/
+
+ersetze_abkürzungen(LWorte,LExWorte):-
+    abkürz(X,Y),
+    replace_in_list(LWorte,X,Y,LExWorte),
+    !.
+
+/* Abkürzung nicht gefunden, gebe die Worte so zurück*/
+ersetze_abkürzungen(LWorte,LWorte).
+
 
 /* collect_sentences(+Liste von Wörtern und Satzzeichen, -Liste von Sätzen)
 */
@@ -269,7 +287,9 @@ char_table('9',   digit,     '9' ).
 abkürz(+Atom,-Atom).
 Das Input-Atom ist immer klein geschrieben, das Output Atom immer groß.
 */
-abkürz('hr.','Herr').
+abkürz([wort([h, r], GK),s('.')],[wort([h,e,r,r], GK)]).
+abkürz([wort([f, r], GK),s('.')],[wort([f,r,a,u], GK)]).
+/*
 abkürz('fr.','Frau').
 abkürz('freundl.','freundlichen').
 abkürz('dr.','Doktor').
@@ -290,3 +310,28 @@ abkürz('usw.','und so weiter').
 abkürz('etc.','et cetera').
 abkürz('v.a.','vor allem').
 abkürz('ggf.','gegebenenfalls').
+*/
+
+/* Hilfsfunktionen für Listen */
+
+/* replace_in_list(+Inputliste,+Suchliste,+Ersetzliste,-Ergebnisliste)
+Ersetzt eine Teilliste durch eine andere Teilliste
+*/
+
+replace_in_list(Inputliste,Suchliste,Ersetzliste,Ergebnisliste):-
+    agg_replace_in_list(Inputliste,[],Suchliste,Ersetzliste,Ergebnisliste).
+
+/* Schlechtfall: die Inputliste ist leer. Rekursionsende */
+agg_replace_in_list([],_,_,_,[]):-!,fail.
+    
+/* Gutfall: die Suchliste wird gefunden. Rekursionsende */
+agg_replace_in_list(Inputliste,Agg,Suchliste,Ersetzliste,Ergebnisliste):-
+    append(Suchliste,Restliste,Inputliste),
+    reverse(Agg,RAgg),
+    append(RAgg,Ersetzliste,ZE),
+    append(ZE,Restliste,Ergebnisliste), !.
+
+/* Die Suchliste wird noch nicht gefunden */
+agg_replace_in_list([HIL|TIL],Agg,Suchliste,Ersetzliste,Ergebnisliste):-
+    agg_replace_in_list(TIL,[HIL|Agg],Suchliste,Ersetzliste,Ergebnisliste).
+
