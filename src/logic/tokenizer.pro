@@ -4,10 +4,9 @@ Tokenizer von J. Strebel
 
 Funktionen des Tokenizers:
  - Erkennung von  Interpunktionszeichen
- - Erkennung von Zahlen
- - Aufspaltung des Inputs in mehrere Sätze, falls nötig
- - Ersetzung von Abkürzungen (z.B. Hr.)
- - Erkennung von Datümern (z.B. 13.12.2016)
+ - Erkennung von Zahlen (sowohl Kardinalzahlen als auch Ordinalzahlen). Allerdings findet keine Erkennung von augeschriebenen Zahlen, z.B. vier, statt.
+ - Erkennung von Sätzen und Aufspaltung des Inputs in mehrere Sätze, falls nötig
+ - Ersetzung von Abkürzungen (z.B. Hr.) entweder durch die Langform oder durch Verkettung der dazugehörigen Tokens zu einem Wort.
 
 D.h der Tokenizer soll einen String nehmen und dann einen oder mehrere Sätze zurückliefern.
 Jeder Satz soll eine Liste mit Atomen sein in der Form w(<Atom>), n(<Zahl>). D.h. die Datenstruktur sieht dann so aus (am Beispiel des Satzes 'Ich gehe zu Fuß. Hilf mir!'):
@@ -16,7 +15,7 @@ Jeder Satz soll eine Liste mit Atomen sein in der Form w(<Atom>), n(<Zahl>). D.h
 T = [satz([wort([i, c, h], groß), wort([g, e, h, e], klein), wort([z, u], klein), wort([f, u, ß], groß)]), ausrufesatz([wort([h, i, l, f], groß), wort([m, i, r], klein)])].
 
 */
-
+:- module(tokenizer, [tokenize_string/2]). % module muss als erste Regel stehen
 
 /* tokenize_string(+StrIn,-LSatz).*/
 tokenize_string(StrIn,SenList) :- 
@@ -25,26 +24,33 @@ tokenize_string(StrIn,SenList) :-
 	collect_words(LChars,WList),
 	collect_numbers(WList,WNrList),
 	delete(WNrList,w(_),LSatz),
-	ersetze_abkürzungen(LSatz,LExSatz),
+	findall(abkürz(A,B),abkürz(A,B),LAbk),
+	ersetze_alle_abkürzungen(LAbk,LSatz,LExSatz),
 	collect_sentences(LExSatz,SenList)
 	.
 
 /* Ersetze Abkürzungen. Wichtig für die Filterung von Punkten vor der Satzerkennung 
-   ersetze_abkürzungen(+Wortliste,-expandierte Wortliste)
+   ersetze_alle_abkürzungen(+Liste der Abkürzungen, +Wortliste,-expandierte Wortliste)
+   ersetze_abkürzung(+Abkürzung, +Wortliste,-expandierte Wortliste)
    Vorgehen: nimm alle Abkürzungen und suche&ersetze sie im Satz
-   TODO: prüfe alle Abkürzungen mittels findall(abkürz(A,B),abkürz(A,B),D)
 */
+ersetze_alle_abkürzungen([H|LAbk],LSatz,LExSatz):-
+    ersetze_abkürzung(H,LSatz,LTmpSatz),
+    ersetze_alle_abkürzungen(LAbk,LTmpSatz,LExSatz).
 
-ersetze_abkürzungen(LWorte,LExWorte):-
-    abkürz(X,Y),
+/* Ende der Rekursion, wenn alle Abkürzungen verarbeitet wurden*/
+ersetze_alle_abkürzungen([],LSatz,LSatz):-!.
+
+ersetze_abkürzung(abkürz(X,Y),LWorte,LExWorte):-
     replace_in_list(LWorte,X,Y,LExWorte),
     !.
 
 /* Abkürzung nicht gefunden, gebe die Worte so zurück*/
-ersetze_abkürzungen(LWorte,LWorte).
+ersetze_abkürzung(abkürz(_,_),LWorte,LWorte).
 
 
 /* collect_sentences(+Liste von Wörtern und Satzzeichen, -Liste von Sätzen)
+   Die Annahme ist, dass Punkte nur das Satzende markieren. Jede sonstige Verwendung von Punkten z.B. in Abkürzungen oder Datümern, muss vorher ersetzt werden.
 */
 collect_sentences(LWords, WList):-
   agg_find_all_sentences(LWords,[],Erlist),
@@ -132,7 +138,11 @@ find_word([T|LInp], LWord, LWord,[T|LInp]).
 
 
 
-/* collect_numbers(+List of Tokens, -List with numbers)
+/* 
+ collect_numbers(+List of Tokens, -List with numbers)
+ Baut einzelne Ziffern zu einer Zahl zusammen. Es gibt zwei Arten: Anzahl und Reihenfolge. Anzahl kann eine Ganzzahl oder eine Zahl mit Nachkommaanteil sein.
+ Zahlenformat Anzahl: nnn,nn
+ Zahlenformat Reihenfolge nn.
 */
 collect_numbers(LTokens,NRList):-
   agg_find_all_numbers(LTokens,[],Erlist),
@@ -152,12 +162,12 @@ agg_find_all_numbers([d(H1)|T],Agg,Outputliste):-
     agg_find_all_numbers(Rest,[zahl(RevResult)|Agg],Outputliste),
     !.
 
-% Default: not a number start - just copy the token to the output
+% Default: kein Beginn einer Zahl - kopiere das Token in den Output
 agg_find_all_numbers([H|T],Agg,Outputliste):-
     agg_find_all_numbers(T,[H|Agg],Outputliste).
 
 
-/* completes a number; LInp starts with a digit 
+/* Prädikat vervollständigt eine Zahl; LInp startet mit einer Ziffer 
 find_number(+LInp,-LWord, -Result, -Rest)
 */
 % Zahlen mit Nachkommaanteil
@@ -176,7 +186,8 @@ find_number([], LWord, LWord,[]):-!.
 find_number([T|LInp], LWord, LWord,[T|LInp]).
 
 
-/* labele alle Chars in der Liste 
+/* 
+ labele alle Chars in der Liste 
  label_all_chars(+InputListe,-Outputliste mit Labels)
 */
 
@@ -285,53 +296,60 @@ char_table('9',   digit,     '9' ).
 
 /* Liste mit deutschen Abkürzungen 
 abkürz(+Atom,-Atom).
-Das Input-Atom ist immer klein geschrieben, das Output Atom immer groß.
+Die Groß/Kleinschreibung wird bei der Ersetzung der Abkürzung übernommen.
+
 */
 abkürz([wort([h, r], GK),s('.')],[wort([h,e,r,r], GK)]).
 abkürz([wort([f, r], GK),s('.')],[wort([f,r,a,u], GK)]).
-/*
-abkürz('fr.','Frau').
-abkürz('freundl.','freundlichen').
-abkürz('dr.','Doktor').
-abkürz('prof.','Professor').
-abkürz('str.','Straße').
-abkürz('jan.','Januar').
-abkürz('feb.','Februar').
-abkürz('mrz.','März').
-abkürz('apr.','April').
-abkürz('jun.','Juni').
-abkürz('jul.','Juli').
-abkürz('aug.','August').
-abkürz('sep.','September').
-abkürz('okt.','Oktober').
-abkürz('nov.','November').
-abkürz('dez.','Dezember').
-abkürz('usw.','und so weiter').
-abkürz('etc.','et cetera').
-abkürz('v.a.','vor allem').
-abkürz('ggf.','gegebenenfalls').
-*/
+abkürz([wort([f, r,e,u,n,d,l], GK),s('.')],[wort([f,r,e,u,n,d,l,i,c,h|_], GK)]). %% Nur Wortstamm, Variable für Endung
+abkürz([wort([d, r], GK),s('.')],[wort([d,o,k,t,o,r], GK)]).
+abkürz([wort([p, r,o,f], GK),s('.')],[wort([p,r,o,f,e,s,s,o,r], GK)]).
+abkürz([wort([s, t,r], GK),s('.')],[wort([s,t,r,a,ß,e], GK)]).
+abkürz([wort([s, t,r], GK),s('.')],[wort([s,t,r,a,ß,e], GK)]).
+abkürz([wort([j,a,n], GK),s('.')],[wort([j,a,n,u,a,r], GK)]).
+abkürz([wort([f,e,b], GK),s('.')],[wort([f,e,b,r,u,a,r], GK)]).
+abkürz([wort([m,r,z], GK),s('.')],[wort([m,ä,r,z], GK)]).
+abkürz([wort([a,p,r], GK),s('.')],[wort([a,p,r,i,l], GK)]).
+abkürz([wort([j,u,n], GK),s('.')],[wort([j,u,n,i], GK)]).
+abkürz([wort([j,u,l], GK),s('.')],[wort([j,u,l,i], GK)]).
+abkürz([wort([a,u,g], GK),s('.')],[wort([a,u,g,u,s,t], GK)]).
+abkürz([wort([s,e,p], GK),s('.')],[wort([s,e,p,t,e,m,b,e,r], GK)]).
+abkürz([wort([o,k,t], GK),s('.')],[wort([o,k,t,o,b,e,r], GK)]).
+abkürz([wort([n,o,v], GK),s('.')],[wort([n,o,v,e,m,b,e,r], GK)]).
+abkürz([wort([d,e,z], GK),s('.')],[wort([d,e,z,e,m,b,e,r], GK)]).
+abkürz([wort([u,s,w], GK),s('.')],[wort([u,s,w,.], GK)]).
+abkürz([wort([e,t,c], GK),s('.')],[wort([e,t,c,.], GK)]).
+abkürz([wort([v], GK0),s('.'),wort([a], _),s('.')],[wort([v,.,a,.], GK0)]).
+abkürz([wort([g,g,f], GK),s('.')],[wort([g,e,g,e,b,e,n,e,n,f,a,l,l,s], GK)]).
+abkürz([s('.'),s('.'),s('.')],[s('.')]).
+abkürz([wort([z], GK0),s('.'),wort([b], _),s('.')],[wort([z,.,b,.], GK0)]).
+abkürz([zahl(Z),s('.')],[zahlrf(Z)]). %%Regel für die Erkennung von Ordinalzahlen
+
 
 /* Hilfsfunktionen für Listen */
 
-/* replace_in_list(+Inputliste,+Suchliste,+Ersetzliste,-Ergebnisliste)
-Ersetzt eine Teilliste durch eine andere Teilliste
+/* 
+  replace_in_list(+Inputliste,+Suchliste,+Ersetzliste,-Ergebnisliste)
+  Ersetzt eine Teilliste durch eine andere Teilliste
+  Falls die Suchliste nicht gefunden wird, ist die Ergebnisliste gleich der Inputliste, ohne dass ein Fehler geworfen wird.
 */
-
 replace_in_list(Inputliste,Suchliste,Ersetzliste,Ergebnisliste):-
-    agg_replace_in_list(Inputliste,[],Suchliste,Ersetzliste,Ergebnisliste).
+    agg_replace_in_list(Inputliste,[],Suchliste,Ersetzliste,LTmpErg),
+    reverse(LTmpErg,Ergebnisliste).
 
-/* Schlechtfall: die Inputliste ist leer. Rekursionsende */
-agg_replace_in_list([],_,_,_,[]):-!,fail.
+/* die Inputliste ist leer. Rekursionsende */
+agg_replace_in_list([],Agg,_,_,Agg):-!.
     
-/* Gutfall: die Suchliste wird gefunden. Rekursionsende */
+/* Gutfall: die Suchliste wird gefunden. Variablen, die gleichzeitig in der Such- als auch der Ersetzliste stehen, werden erneuert, um unabhängige Mehrfachmatches zu ermöglichen. copy_term/2 muss am Anfang kommen, damit die noch uninstanziierten Variablen kopiert werden. Nach append/3 sind alle Variablen instanziiert.*/
 agg_replace_in_list(Inputliste,Agg,Suchliste,Ersetzliste,Ergebnisliste):-
+    copy_term(ttmp(Suchliste,Ersetzliste),ttmp(Suchliste1,Ersetzliste1)),
     append(Suchliste,Restliste,Inputliste),
-    reverse(Agg,RAgg),
-    append(RAgg,Ersetzliste,ZE),
-    append(ZE,Restliste,Ergebnisliste), !.
+    reverse(Ersetzliste,RErsetzliste),
+    append(RErsetzliste,Agg,ZE),
+    agg_replace_in_list(Restliste,ZE,Suchliste1,Ersetzliste1,Ergebnisliste),
+    !.
 
-/* Die Suchliste wird noch nicht gefunden */
+/* Default: Die Suchliste wird noch nicht gefunden */
 agg_replace_in_list([HIL|TIL],Agg,Suchliste,Ersetzliste,Ergebnisliste):-
     agg_replace_in_list(TIL,[HIL|Agg],Suchliste,Ersetzliste,Ergebnisliste).
 

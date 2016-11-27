@@ -1,7 +1,6 @@
 :- module(database, [start/2]). % module muss als erste Regel stehen
 :- dynamic concept/2.
 
-:- consult('efficient_tokenizer.pro').
 
 %% Listen-Hilfsfunktionen
 
