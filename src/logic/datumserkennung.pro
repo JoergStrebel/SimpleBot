@@ -1,5 +1,5 @@
 /*
-Datumserkennung von J. Strebel
+Datumserkennung von J. Strebel, 2016
 
 Funktionen des Moduls:
  - Erkennung von Datümern in deutscher Notation, z.B. Tag.Monat.Jahr
@@ -14,3 +14,4 @@ Funktionen des Moduls:
  Erkenne Datümer als Einstiegsprädikat ins Modul.
 */ 
 erkenne_datümer(LInput,LOutput).
+
