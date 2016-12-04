@@ -1,51 +1,27 @@
 :- module(database, [start/2]). % module muss als erste Regel stehen
 :- dynamic concept/2.
+:- use_module('tokenizer.pro').
+:- use_module('datumserkennung.pro').
 
-
-%% Listen-Hilfsfunktionen
-
-%% Definition of reverse([])
-accRev([H|T],A,R):- accRev(T,[H|A],R).
-accRev([],A,A).
-rev(L,R):- accRev(L,[],R).
-
-accstringlist_to_atomlist([HS|TS],AC,AL):- 
-    atom_string(AT,HS),
-    accstringlist_to_atomlist(TS,[AT|AC],AL).
-
-accstringlist_to_atomlist([],AC,AC).
-stringlist_to_atomlist(SL,AL):- 
-    accstringlist_to_atomlist(SL,[],RAL),
-    rev(RAL,AL).
-
-/* Tokenizer für einen einfachen Satz
-   Am Ende liefert der Tokenizer eine Liste mit Atomen
-*/
-sentence_to_list(S,L):- var(S),!,L=[].
-sentence_to_list(S,L):- 
-    string(S),
-    split_string(S," ",".",STL),
-    stringlist_to_atomlist(STL,L).
-
-list_to_sentence(L,S):- var(L),!,S="".
-list_to_sentence(L,S):- 
-    is_list(L),
-    atomics_to_string(L,' ',S).
 
 /*
 Start des Programms hier
-TODO: evil hack ausbauen
+TODO: integriere tokenizer und datumserkennung in den DCG-Parser
 */
 start(ISt,ASt) :- 
-    sentence_to_list(ISt,Li),
-    sentence(M,Li,[]),
-    evalquest(M,ASt).
+    tokenizer:tokenize_string(ISt,LSentences),
+    datumserkennung:erkenne_datümer(LSentences,LDSentences),
+    display(LDSentences),
+    ASt = "Ich weiss nicht, was ich sagen soll."
+.
 
+/*
 evalquest(M, ASt) :- 
     call(M),
     allgetproperty(A,B,[C|_])=M,
     sentence(addproperty(A,B,C),X,[]),
     list_to_sentence(X,ASt).
+*/
 
 %% Grammatik
 % Kleine DCG für eine Teilmenge der deutschen Sprache

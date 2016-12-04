@@ -8,10 +8,9 @@ Funktionen des Moduls:
 
 */
 :- module(datumserkennung, [erkenne_datümer/2]). % module muss als erste Regel stehen
-:- use_module('tokenizer.pro').
 
 /*
  Erkenne Datümer als Einstiegsprädikat ins Modul.
 */ 
-erkenne_datümer(LInput,LOutput).
+erkenne_datümer(LInput,LInput).
 

@@ -68,6 +68,8 @@ int check_spelling(char *sLine)
 int main(int argc, char* argv[]) 
 {
     char *sLineInp;
+    char *presult;
+    int iqres;
         
     printf("Hallo Welt!\n");
     
@@ -77,10 +79,19 @@ int main(int argc, char* argv[])
       */
     pSpeller=Hunspell_create("/usr/share/hunspell/de_DE.aff", "/usr/share/hunspell/de_DE.dic");
     
+
+    /*if SWI-PL cannot be initialized then exit*/
+    if (!init_connection(argv[0]))
+    {
+      exit(EXIT_FAILURE);
+    }
+    
     while(1)
     {
       sLineInp=rl_gets();
-      printf("%s\n",sLineInp);
+      
+      /* abort condition */
+      if (!strcmp(sLineInp,"!stop")) break;
       
       /*check spelling*/
       if(check_spelling(sLineInp)==0)
@@ -88,11 +99,22 @@ int main(int argc, char* argv[])
 	printf("Schreibfehler in Eingabe\n");
       }
       else printf("Rechtschreibung ok.\n");
-
-      query(argv[0],"");
       
+      /* query the Prolog database */
+      iqres=query(sLineInp,&presult);
+      
+      if (!iqres)
+	{
+	  printf("Ich kann leider nicht antworten.\n");
+	}
+      else
+	{
+	  printf("success in query: %s \n", presult);
+	}
+
     } /*while*/
     
+    stop_connection(0);
     return (0);
 }
 
